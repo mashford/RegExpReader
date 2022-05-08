@@ -50,6 +50,11 @@ import {
       ir: IRNode;
     };
   };
+
+  export type Handler = (nodes: Element[], pointer: number) => {
+    pointer: number;
+    ir: IRNode;
+  };
   
   export type IRNode = {
     type: string;

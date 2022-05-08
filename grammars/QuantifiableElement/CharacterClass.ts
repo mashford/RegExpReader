@@ -6,12 +6,12 @@ import {
   CharacterClassRange,
   CharacterSet,
   Element,
-} from 'regexpp/ast';
-import { handleCharacter } from './Character';
-import { handleCharacterSet } from './CharacterSet';
-import { loopChecker } from '../shared';
-import { handleCharacterClassRange } from './CharacterClassRange';
-import { IRNode } from '../types';
+} from 'regexpp/ast'
+import { handleCharacter } from './Character'
+import { handleCharacterSet } from './CharacterSet'
+import { loopChecker } from '../shared'
+import { handleCharacterClassRange } from './CharacterClassRange'
+import { IRNode } from '../types'
 
 /* parse strings
 SuperExpressive()
@@ -55,44 +55,42 @@ export const handleCharacterClass = (
   characterClassNodes: CharacterClass[],
   index: number
 ) => {
-  const characterClassNode = characterClassNodes[index];
-  const elements = characterClassNode.elements;
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  const IRNodes: IRNode[] = [];
+  const characterClassNode = characterClassNodes[index]
+  const elements = characterClassNode.elements
+  const IRNodes: IRNode[] = []
   for (
     let pointer = 0, checker = 0;
     pointer < elements.length;
     checker = loopChecker(pointer, checker, elements)
   ) {
-    //CharacterClassElement
-    const curNode = elements[pointer];
+    const curNode = elements[pointer]
     switch (curNode.type) {
       case 'Character': {
         const { pointer: nextPointer, ir: IR } = handleCharacter(
           elements as Character[],
           pointer
-        );
-        pointer = nextPointer;
-        IRNodes.push(IR);
-        break;
+        )
+        pointer = nextPointer
+        IRNodes.push(IR)
+        break
       }
       case 'CharacterSet': {
         const { pointer: nextPointer, ir: IR } = handleCharacterSet(
           elements as CharacterSet[],
           pointer
-        );
-        pointer = nextPointer;
-        IRNodes.push(IR);
-        break;
+        )
+        pointer = nextPointer
+        IRNodes.push(IR)
+        break
       }
       case 'CharacterClassRange': {
         const { pointer: nextPointer, ir: IR } = handleCharacterClassRange(
           elements as CharacterClassRange[],
           pointer
-        );
-        pointer = nextPointer;
-        IRNodes.push(IR);
-        break;
+        )
+        pointer = nextPointer
+        IRNodes.push(IR)
+        break
       }
       // default: {
       //   panic({
@@ -112,13 +110,13 @@ export const handleCharacterClass = (
     msg: characterClassNode.negate
       ? 'a char not in following set:'
       : 'a char in following set:',
-  };
+  }
   //[^a-c]: a char that is not:
   return {
     pointer: index + 1,
     ir: characterClassIR,
-  };
-};
+  }
+}
 
 //have a try
 // const ast = getLiteral(/[xyz\W][^abc][a-z]abc./);
