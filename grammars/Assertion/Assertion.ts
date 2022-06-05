@@ -1,5 +1,5 @@
-import { Alternative, Element } from 'regexpp/ast';
-import { getLiteral, showAST } from '../util';
+import { Alternative, Element } from 'regexpp/ast'
+import { getLiteral, showAST } from '../util'
 //input
 // [
 //   { type: 'Character', raw: 'a' },
@@ -23,12 +23,12 @@ export const handleAssertion = (nodes: Element[], pointer: number) => {
       raw: nodes[pointer].raw,
       msg: `matches ${nodes[pointer].raw}`,
     },
-  };
-};
+  }
+}
 
 //have a try
 
-const ast = getLiteral(/abC/);
-showAST(ast);
+// const ast = getLiteral(/abC/);
+// showAST(ast);
 // console.log(handleCharacter(ast[0].elements, 0)); // { pointer: 3, val: { type: 'string', val: 'abC' } }
 // pass

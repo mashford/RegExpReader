@@ -1,42 +1,5 @@
-import { Alternative, CharacterSet, Element } from 'regexpp/ast';
-import { getLiteral, showAST } from '../util';
-
-/* parse strings
-SuperExpressive()
-  .string('abC')
-.toRegex();
-*/
-
-/* 
-/\w\s\d/
-*/
-
-//input
-/*AST
-[
-  {
-    type: 'Alternative',
-    raw: 'abC',
-    elements: [
-      { type: 'Character', raw: 'a' },
-      { type: 'Character', raw: 'b' },
-      { type: 'Character', raw: 'C' }
-    ]
-  }
-]
-*/
-// [
-//   { type: 'Character', raw: 'a' },
-//   { type: 'Character', raw: 'b' },
-//   { type: 'Character', raw: 'C' }
-// ]
-
-//output
-/*
-[
-  {type: 'string', val: 'abC'}
-]
-*/
+import { Alternative, CharacterSet, Element } from 'regexpp/ast'
+import { getLiteral, showAST } from '../util'
 
 export const handleCharacterSet = (nodes: CharacterSet[], pointer: number) => {
   switch (nodes[pointer].raw) {
@@ -49,7 +12,7 @@ export const handleCharacterSet = (nodes: CharacterSet[], pointer: number) => {
           msg: `a whitespace character`,
           examples: ['\r', '\n', ' '],
         },
-      };
+      }
     }
     case '\\S': {
       return {
@@ -60,7 +23,7 @@ export const handleCharacterSet = (nodes: CharacterSet[], pointer: number) => {
           msg: `a non-whitespace character`,
           examples: ['.', 's', '2'],
         },
-      };
+      }
     }
     case '\\d': {
       return {
@@ -71,7 +34,7 @@ export const handleCharacterSet = (nodes: CharacterSet[], pointer: number) => {
           msg: `a numeric character.`,
           examples: ['1', '2', '3'],
         },
-      };
+      }
     }
     case '\\D': {
       return {
@@ -82,7 +45,7 @@ export const handleCharacterSet = (nodes: CharacterSet[], pointer: number) => {
           msg: `a non-numeric character.`,
           examples: ['.', 's', ' '],
         },
-      };
+      }
     }
     case '\\w': {
       return {
@@ -93,7 +56,7 @@ export const handleCharacterSet = (nodes: CharacterSet[], pointer: number) => {
           msg: `a alphanumeric character. Including the underline.`,
           examples: ['a', 'S', '_', '1'],
         },
-      };
+      }
     }
     case '\\W': {
       return {
@@ -104,7 +67,7 @@ export const handleCharacterSet = (nodes: CharacterSet[], pointer: number) => {
           msg: `a character not in (a-z, A-Z, 0-9, _)`,
           examples: ['.', ',', ' '],
         },
-      };
+      }
     }
     case '.': {
       return {
@@ -115,17 +78,17 @@ export const handleCharacterSet = (nodes: CharacterSet[], pointer: number) => {
           msg: `any character except line breaks.`,
           examples: ['h', 'i', ' ', '0', '1', '2', '_', '-', '!', '?'],
         },
-      };
+      }
     }
     default: {
-      throw new Error('unknown CharacterSet');
+      throw new Error('unknown CharacterSet')
     }
   }
-};
+}
 
 //have a try
 
-const ast = getLiteral(/\w\s\dwsd\W\S\D./);
-showAST(ast);
-console.log(handleCharacterSet(ast[0].elements as CharacterSet[], 0));
+// const ast = getLiteral(/\w\s\dwsd\W\S\D./)
+// showAST(ast)
+// console.log(handleCharacterSet(ast[0].elements as CharacterSet[], 0))
 //done

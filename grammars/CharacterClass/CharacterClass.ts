@@ -1,55 +1,14 @@
 import {
-  Alternative,
   Character,
   CharacterClass,
-  CharacterClassElement,
   CharacterClassRange,
   CharacterSet,
-  Element,
 } from 'regexpp/ast'
-import { handleCharacter } from './Character'
-import { handleCharacterSet } from './CharacterSet'
+import { handleCharacter } from '../Character/Character'
+import { handleCharacterSet } from '../CharacterSet/CharacterSet'
 import { loopChecker } from '../shared'
-import { handleCharacterClassRange } from './CharacterClassRange'
+import { handleCharacterClassRange } from '../CharacterClassRange/CharacterClassRange'
 import { IRNode } from '../types'
-
-/* parse strings
-SuperExpressive()
-  .anyOfChars('xyz')
-.toRegex();
-*/
-
-/* 
-/[xyz]/
-*/
-
-//input
-/*AST
-[
-  {
-    type: 'Alternative',
-    raw: '[xyz]',
-    elements: [
-      {
-        type: 'CharacterClass',
-        raw: '[xyz]',
-        elements: [
-          { type: 'Character', raw: 'x' },
-          { type: 'Character', raw: 'y' },
-          { type: 'Character', raw: 'z' }
-        ]
-      }
-    ]
-  }
-]
-*/
-
-//output
-/*
-[
-  {type: 'anyOfChars', val: 'xyz'}
-]
-*/
 
 export const handleCharacterClass = (
   characterClassNodes: CharacterClass[],
@@ -104,7 +63,7 @@ export const handleCharacterClass = (
 
   const characterClassIR = {
     type: 'CharacterClass',
-    elements: IRNodes,
+    children: IRNodes,
     raw: characterClassNode.raw,
     negate: characterClassNode.negate,
     msg: characterClassNode.negate

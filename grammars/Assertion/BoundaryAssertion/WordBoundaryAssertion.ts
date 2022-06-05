@@ -1,19 +1,6 @@
 import { Element, WordBoundaryAssertion } from 'regexpp/ast'
 import { Handler } from '../../types'
 import { getLiteral, panic, showAST } from '../../util'
-//input
-// [
-//   { type: 'Character', raw: 'a' },
-//   { type: 'Character', raw: 'b' },
-//   { type: 'Character', raw: 'C' }
-// ]
-
-//output
-/*
-[
-  {type: 'string', val: 'abC'}
-]
-*/
 
 //handle Assertion
 export const handleWordBoundaryAssertion: Handler = (
